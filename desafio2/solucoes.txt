@@ -1,0 +1,36 @@
+O cliente gostaria de saber quantos produtos ele possui em cada categoria. Qual SQL você faria para realizar essa consulta?
+
+SELECT c.id,
+       c.name,
+       count(p.id) AS quantidade, 
+FROM categories AS c
+LEFT JOIN products AS p ON p.category_id = c.id
+GROUP BY c.id,
+         c.name
+ORDER BY c.name;
+
+
+-----------------------------------------------------------
+
+Além disso, também quer saber a média de preços de cada categoria. Monte o SQL para essa solicitação
+
+SELECT c.id,
+       c.name,
+       AVG(price) as PRECO_MEDIO
+FROM categories AS c
+LEFT JOIN products AS p ON p.category_id = c.id
+GROUP BY c.id,
+         c.name
+ORDER BY c.name;
+
+----------------------------------------------------------
+
+Faça um SQL para atualizar todos os produtos da categoria Cremes e Geleias para a categoria Frutas
+
+UPDATE
+  products p
+SET
+  category_id = (SELECT id FROM categories WHERE name = 'Frutas')
+WHERE
+  category_id = (SELECT id FROM categories WHERE name = 'Cremes e Geleias')
+
